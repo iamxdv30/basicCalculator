@@ -2,7 +2,6 @@ from basic_Op.basicOperator import basicOperator
 import keyboard
 import math
 
-
 def performBasicOperation(operator, num1, num2):
     if operator == "+":
         return num1 + num2
@@ -11,13 +10,17 @@ def performBasicOperation(operator, num1, num2):
     elif operator == "*":
         return num1 * num2
     elif operator == "/":
-        return num1 / num2
+        try:
+            return num1 / num2
+        except ZeroDivisionError:
+            print("Cannot divide by zero.")
+            return num1
     else:
         print("Invalid operation")
-        return num1
+        return None
     
 def performAdvanceOperation(operator, num1, num2, log_base=10):
-    angleInRadians = math.radians(num2) if operator in ['sin', 'cos', 'tan', 'cot'] else None
+    angleInRadians = math.radians(num2) if operator in ['sin', 'cos', 'tan', 'cot'] and num2 is not None else None
     if operator == "sin":
         return num1 * math.sin(angleInRadians)
     elif operator == "cos":
@@ -36,7 +39,7 @@ def performAdvanceOperation(operator, num1, num2, log_base=10):
         return num1 * math.pi
     else:
         print("Invalid operation")
-        return num1
+        return None
     
 def getFloatInput(prompt):
     while True:
@@ -46,54 +49,36 @@ def getFloatInput(prompt):
             print("Invalid input. Please enter a valid number.")
 
 def main():
-    userInput = input("Enter a number, +, -, *, /, sin, cos, tan, cot, log, mod, power, 'pi', or 'exit' to quit: ").strip().lower()
     while True:
+        userInput = input("Enter a number, +, -, *, /, sin, cos, tan, cot, log, mod, power, 'pi', or 'exit' to quit: ").strip().lower()
         if userInput == 'exit':
+            print("Exiting program.")
             break
-        if userInput.isdigit():
-            num1 = float(userInput)
+        if userInput.isdigit() or userInput.replace('.', '', 1).isdigit() or userInput == 'pi':
+            num1 = math.pi if userInput == 'pi' else float(userInput)
             while True:
                 chooseOperator = input("Enter an operator (+, -, *, /, sin, cos, tan, cot, log, mod, power, pi or 'back' to change number): ").strip().lower()
                 if chooseOperator == 'back':
                     break
-                if chooseOperator in ["+", "-", "*", "/"]:
-                    num2 = getFloatInput("Enter another number: ")
-                    result = performBasicOperation(chooseOperator, num1, num2)
-                elif chooseOperator in ["sin", "cos", "tan", "cot", "log", "mod"]:
-                    num2 = getFloatInput("Enter another number: ")
+                num2 = None
+                if chooseOperator in ["+", "-", "*", "/", "sin", "cos", "tan", "cot", "log", "mod", "power"]:
+                    if chooseOperator not in ["sin", "cos", "tan", "cot", "pi"]:
+                        num2 = getFloatInput("Enter another number: ")
                     if chooseOperator == "log":
                         base = getFloatInput("Enter the base: ")
                         result = performAdvanceOperation(chooseOperator, num1, num2, base)
                     else:
-                        result = performAdvanceOperation(chooseOperator, num1, num2)
+                        result = performBasicOperation(chooseOperator, num1, num2) if chooseOperator in ["+", "-", "*", "/"] else performAdvanceOperation(chooseOperator, num1, num2)
+                    if result is not None:
+                        print("Current result:", result)
+                        num1 = result
+                    else:
+                        print("No operation performed.")
                 else:
                     print("Invalid operation.")
                     continue
-                print("Current result:", result)
-                num1 = result
-        
-        if userInput == 'pi':
-            num1 = math.pi
-        if userInput == 'power':
-            num1 = getFloatInput("Enter the base: ")
-            num2 = getFloatInput("Enter the exponent: ")
-            result = performAdvanceOperation(userInput, num1, num2)
-            print("Current result:", result)
-        if userInput == 'exit':
-            break
-        if userInput in ["sin", "cos", "tan", "cot"]:
-            num1 = getFloatInput("Enter the angle in degrees: ")
-            result = performAdvanceOperation(userInput, num1, None)
-            print("Current result:", result)
-        if userInput in ["log", "mod"]:
-            num1 = getFloatInput("Enter the number: ")
-            num2 = getFloatInput("Enter the base: ")
-            result = performAdvanceOperation(userInput, num1, num2)
-            print("Current result:", result)
-        
         else:
-            print("Invalid input. Please enter a valid number or 'exit' to quit.")
-            continue
+            print("Invalid input. Please enter a valid number, operation, or 'exit' to quit.")
 
 if __name__ == "__main__":
     main()
