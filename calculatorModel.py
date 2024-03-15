@@ -122,3 +122,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# The userChooseDigit() function is the same as the main() function in the original model.py file.
