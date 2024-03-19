@@ -2,6 +2,7 @@ from basic_Op.basicOperator import basicOperator
 import keyboard
 import math
 
+valid_operators = ["+", "-", "*", "/", "sin", "cos", "tan", "cot", "log", "mod", "power", "pi", "back"]
 
 def performBasicOperation(operator, num1, num2):
     if operator == "+":
@@ -46,7 +47,7 @@ def getFloatInput(prompt):
         else:
             print("Invalid input. Please enter a valid number.")
 
-def userChooseDigit():
+def choose_digit_and_basic_operator():
     while True:
         userInput = input("Enter a number, +, -, *, /, sin, cos, tan, cot, log, mod, power, 'pi', or 'exit' to quit: ").strip().lower()
         if userInput == 'exit':
@@ -59,14 +60,9 @@ def userChooseDigit():
                 if chooseOperator == 'back':
                     break
                 num2 = None
-                if chooseOperator in ["+", "-", "*", "/", "sin", "cos", "tan", "cot", "log", "mod", "power"]:
-                    if chooseOperator not in ["sin", "cos", "tan", "cot", "pi"]:
-                        num2 = getFloatInput("Enter another number: ")
-                    if chooseOperator == "log":
-                        base = getFloatInput("Enter the base: ")
-                        result = performAdvanceOperation(chooseOperator, num1, num2, base)
-                    else:
-                        result = performBasicOperation(chooseOperator, num1, num2) if chooseOperator in ["+", "-", "*", "/"] else performAdvanceOperation(chooseOperator, num1, num2)
+                if chooseOperator in ["+", "-", "*", "/", "mod", "power"]:
+                    num2 = getFloatInput("Enter another number: ")
+                    result = performBasicOperation(chooseOperator, num1, num2)
                     if result is not None:
                         print("Current result:", result)
                         num1 = result
@@ -79,14 +75,18 @@ def userChooseDigit():
             print("Invalid input. Please enter a valid number, operation, or 'exit' to quit.")
 
 def userChoosePi():
+
     while True:
         userInput = input("Enter a number, +, -, *, /, sin, cos, tan, cot, log, mod, power, 'pi', or 'exit' to quit: ").strip().lower()
         if userInput == 'exit':
             print("Exiting the program.")
             break
-        
-        if userInput == 'pi':
+            
+        if userInput == 'pi' and not (userInput.isdigit() or performBasicOperation or performAdvanceOperation):
+            return math.pi    
+        elif userInput == 'pi':
             num1 = math.pi
+            
         elif userInput.replace('.', '', 1).isdigit():
             num1 = float(userInput)
         else:
@@ -94,10 +94,16 @@ def userChoosePi():
             continue
 
         while True:
+            
             chooseOperator = input("Enter an operator (+, -, *, /, sin, cos, tan, cot, log, mod, power, pi or 'back' to change number): ").strip().lower()
+            
             if chooseOperator == 'back':
                 break
             
+            if chooseOperator not in valid_operators and not chooseOperator.replace('.', '', 1).isdigit():
+                print("Invalid operation. Please enter a valid operator or a number.")
+                continue
+
             if chooseOperator in ["+", "-", "*", "/"]:
                 num2 = getFloatInput("Enter another number: ")
                 result = performBasicOperation(chooseOperator, num1, num2)
@@ -109,8 +115,9 @@ def userChoosePi():
                 else:
                     num2 = getFloatInput("Enter the angle in degrees (for trigonometric operations) or another number: ")
                     result = performAdvanceOperation(chooseOperator, num1, num2)
+           
             else:
-                print("Invalid operation.")
+                print(f'Current result: {math.pi}')
                 continue
             
             if result is not None:
@@ -118,9 +125,8 @@ def userChoosePi():
                 num1 = result
 
 def main():
-    userChooseDigit()
+    userChoosePi()
 
 if __name__ == "__main__":
     main()
 
-# The userChooseDigit() function is the same as the main() function in the original model.py file.
