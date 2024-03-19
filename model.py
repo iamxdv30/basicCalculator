@@ -1,4 +1,4 @@
-from basic_Op.basicOperator import basicOperator
+from Operators.Operator import Operator
 import keyboard
 import math
 

@@ -1,43 +1,10 @@
-from basic_Op.basicOperator import basicOperator
+from Operators.Operator import Operator
 import keyboard
 import math
 
-valid_operators = ["+", "-", "*", "/", "sin", "cos", "tan", "cot", "log", "mod", "power", "pi", "back"]
+performBasicOperation = Operator.performBasicOperation
+performAdvanceOperation = Operator.performAdvanceOperation
 
-def performBasicOperation(operator, num1, num2):
-    if operator == "+":
-        return num1 + num2
-    elif operator == "-":
-        return num1 - num2
-    elif operator == "*":
-        return num1 * num2
-    elif operator == "/":
-        return num1 / num2
-    else:
-        print("Invalid operation")
-        return num1
-    
-def performAdvanceOperation(operator, num1, num2, log_base=10):
-    angleInRadians = math.radians(num2) if operator in ['sin', 'cos', 'tan', 'cot'] else None
-    if operator == "sin":
-        return num1 * math.sin(angleInRadians)
-    elif operator == "cos":
-        return num1 * math.cos(angleInRadians)
-    elif operator == "tan":
-        return num1 * math.tan(angleInRadians)
-    elif operator == "cot":
-        return num1 * 1 / math.tan(angleInRadians)
-    elif operator == "log":
-        return num1 * math.log(num2, log_base)
-    elif operator == "mod":
-        return num1 % num2
-    elif operator == "power":
-        return num1 ** num2
-    elif operator == "pi":
-        return num1 * math.pi
-    else:
-        print("Invalid operation")
-        return num1
     
 def getFloatInput(prompt):
     while True:
@@ -74,6 +41,7 @@ def choose_digit_and_basic_operator():
         else:
             print("Invalid input. Please enter a valid number, operation, or 'exit' to quit.")
 
+
 def userChoosePi():
 
     while True:
@@ -96,13 +64,8 @@ def userChoosePi():
         while True:
             
             chooseOperator = input("Enter an operator (+, -, *, /, sin, cos, tan, cot, log, mod, power, pi or 'back' to change number): ").strip().lower()
-            
             if chooseOperator == 'back':
                 break
-            
-            if chooseOperator not in valid_operators and not chooseOperator.replace('.', '', 1).isdigit():
-                print("Invalid operation. Please enter a valid operator or a number.")
-                continue
 
             if chooseOperator in ["+", "-", "*", "/"]:
                 num2 = getFloatInput("Enter another number: ")
@@ -115,7 +78,7 @@ def userChoosePi():
                 else:
                     num2 = getFloatInput("Enter the angle in degrees (for trigonometric operations) or another number: ")
                     result = performAdvanceOperation(chooseOperator, num1, num2)
-           
+
             else:
                 print(f'Current result: {math.pi}')
                 continue
@@ -124,6 +87,7 @@ def userChoosePi():
                 print("Current result:", result)
                 num1 = result
 
+        
 def main():
     userChoosePi()
 
