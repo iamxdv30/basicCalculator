@@ -90,8 +90,6 @@ def userChoosePi():
 
         
 def main():
-
-    choose_digit_and_basic_operator()
     userChoosePi()
 
 if __name__ == "__main__":
