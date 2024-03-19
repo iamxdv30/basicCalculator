@@ -4,8 +4,9 @@ import math
 
 performBasicOperation = Operator.performBasicOperation
 performAdvanceOperation = Operator.performAdvanceOperation
+validBasicOperators = ["+", "-", "*", "/"]
+userInput = input("Enter a number, +, -, *, /, sin, cos, tan, cot, log, mod, power, 'pi', or 'exit' to quit: ").strip().lower()
 
-    
 def getFloatInput(prompt):
     while True:
         input_str = input(prompt).strip().lower()
@@ -16,7 +17,7 @@ def getFloatInput(prompt):
 
 def choose_digit_and_basic_operator():
     while True:
-        userInput = input("Enter a number, +, -, *, /, sin, cos, tan, cot, log, mod, power, 'pi', or 'exit' to quit: ").strip().lower()
+
         if userInput == 'exit':
             print("Exiting program.")
             break
@@ -45,7 +46,7 @@ def choose_digit_and_basic_operator():
 def userChoosePi():
 
     while True:
-        userInput = input("Enter a number, +, -, *, /, sin, cos, tan, cot, log, mod, power, 'pi', or 'exit' to quit: ").strip().lower()
+
         if userInput == 'exit':
             print("Exiting the program.")
             break
@@ -89,6 +90,8 @@ def userChoosePi():
 
         
 def main():
+
+    choose_digit_and_basic_operator()
     userChoosePi()
 
 if __name__ == "__main__":
