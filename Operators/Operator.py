@@ -16,7 +16,8 @@ class Operator:
             return num1
         
     def performAdvanceOperation(operator, num1, num2, log_base=10):
-        angleInRadians = math.radians(num2) if operator in ['sin', 'cos', 'tan', 'cot'] else None
+        angleInRadians = math.radians(num2)
+        
         if operator == "sin":
             return num1 * math.sin(angleInRadians)
         elif operator == "cos":
@@ -36,3 +37,17 @@ class Operator:
         else:
             print("Invalid operation")
             return num1
+        
+    def trigonometryOperation(operator, angleInDegrees):
+        angleInRadians = math.radians(angleInDegrees)
+        if operator == "sin":
+            return math.sin(angleInRadians)
+        elif operator == "cos":
+            return math.cos(angleInRadians)
+        elif operator == "tan":
+            return math.tan(angleInRadians)
+        elif operator == "cot":
+            return 1 / math.tan(angleInRadians)
+        else:
+            print("Invalid operation")
+            return angleInDegrees
