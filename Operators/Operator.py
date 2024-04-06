@@ -15,9 +15,9 @@ class Operator:
             print("Invalid operation")
             return num1
         
-    def performAdvanceOperation(operator, num1, num2, log_base=10):
+    def performAdvanceOperation(operator, num1, num2, log_base):
         angleInRadians = math.radians(num2)
-        
+
         if operator == "sin":
             return num1 * math.sin(angleInRadians)
         elif operator == "cos":

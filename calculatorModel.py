@@ -54,8 +54,8 @@ def calculator():
             result = performAdvanceOperation(chooseOperator, num1, angle)
         elif chooseOperator == "log":
             number = getFloatInput("Enter a number: ")
-            base = getFloatInput("Enter the base: ")
-            result = performAdvanceOperation(chooseOperator, number, base)
+            log_base = getFloatInput("Enter the base: ")
+            result = performAdvanceOperation(chooseOperator, number, log_base)
         else:
             print("Invalid operator. Please try again.")
             continue
