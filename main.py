@@ -1,7 +1,7 @@
-import calculator
+from calculatorModel import calculator
 
 def main():
-    calculator
+    calculator()
 
 if __name__ == "__main__":
     main()

@@ -64,9 +64,6 @@ def calculator():
             print("Current result:", result)
             num1 = result
 
-def main():
-    calculator()
-
 if __name__ == "__main__":
-    main()
+    calculator()
 
