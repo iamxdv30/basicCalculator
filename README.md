@@ -1,93 +1,354 @@
-# Python_Calculator_Project
+# Scientific Calculator Web Application
 
+A modern, professional web-based scientific calculator built with Flask, featuring a beautiful responsive UI and comprehensive mathematical operations.
 
+![Calculator](https://img.shields.io/badge/Python-3.11-blue)
+![Flask](https://img.shields.io/badge/Flask-3.0.0-green)
+![Tests](https://img.shields.io/badge/Tests-41%20Passed-brightgreen)
+![Docker](https://img.shields.io/badge/Docker-Ready-blue)
 
-## Getting started
+## Features
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### Basic Operations
+- **Addition** (+)
+- **Subtraction** (-)
+- **Multiplication** (×)
+- **Division** (÷)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### Scientific Operations
+- **Trigonometric Functions**: sin, cos, tan, cot (with degree input)
+- **Logarithm**: Custom base logarithm
+- **Power**: Exponentiation (x^y)
+- **Modulo**: Remainder operation
+- **Pi Constant**: Built-in π value
 
-## Add your files
+### UI Features
+- Modern, responsive design with glass morphism effects
+- Mobile-friendly interface
+- Dual mode: Basic & Scientific calculator
+- Calculation history with localStorage
+- Keyboard support
+- Smooth animations and transitions
+- Professional icons from Font Awesome
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## Architecture
 
+This application follows **industry best practices** and **clean code principles**:
+
+### Backend (Python/Flask)
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/xdvportfolio/python_calculator_project.git
-git branch -M main
-git push -uf origin main
+basicCalculator/
+├── app/
+│   ├── __init__.py           # Application factory
+│   ├── routes.py             # REST API endpoints
+│   ├── calculator_service.py # Business logic layer
+│   ├── static/               # Static assets (CSS, JS, images)
+│   └── templates/            # HTML templates
+├── Operators/
+│   ├── __init__.py
+│   └── Operator.py           # Calculator operations with error handling
+├── tests/                    # Comprehensive test suite
+│   ├── test_operator.py      # Unit tests
+│   └── test_api.py           # Integration tests
+├── main.py                   # Application entry point
+├── requirements.txt          # Python dependencies
+├── Dockerfile                # Multi-stage Docker build
+└── docker-compose.yml        # Docker orchestration
 ```
 
-## Integrate with your tools
+### Design Patterns Used
+- **Application Factory Pattern** (Flask)
+- **Service Layer Pattern** (Business logic separation)
+- **Blueprint Pattern** (Route organization)
+- **Single Responsibility Principle** (SOLID)
+- **Custom Exception Handling**
 
-- [ ] [Set up project integrations](https://gitlab.com/xdvportfolio/python_calculator_project/-/settings/integrations)
+### Code Quality
+- Type hints throughout codebase
+- Comprehensive docstrings
+- PEP 8 compliant
+- 41 unit and integration tests
+- Error handling and input validation
+- Security best practices (non-root Docker user, CORS, XSS prevention)
 
-## Collaborate with your team
+## Getting Started
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+### Prerequisites
+- Python 3.11 or higher
+- Docker and Docker Compose (for containerized deployment)
+- pip (Python package manager)
 
-## Test and Deploy
+### Local Development
 
-Use the built-in continuous integration in GitLab.
+#### 1. Clone the repository
+```bash
+cd basicCalculator
+```
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+#### 2. Create a virtual environment
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-***
+#### 3. Install dependencies
+```bash
+pip install -r requirements.txt
+```
 
-# Editing this README
+#### 4. Run tests
+```bash
+pytest tests/ -v
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+#### 5. Run the application
+```bash
+python main.py
+```
 
-## Suggestions for a good README
+The application will be available at `http://localhost:5000`
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+### Development Mode with Auto-Reload
+```bash
+export FLASK_ENV=development  # On Windows: set FLASK_ENV=development
+python main.py
+```
 
-## Name
-Choose a self-explaining name for your project.
+## Docker Deployment (Recommended)
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+### Quick Start with Docker Compose
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+#### 1. Build and run
+```bash
+docker-compose up --build
+```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+#### 2. Access the application
+Open your browser and navigate to `http://localhost:5000`
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+#### 3. Stop the application
+```bash
+docker-compose down
+```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Manual Docker Build
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+#### Build the image
+```bash
+docker build -t scientific-calculator:latest .
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+#### Run the container
+```bash
+docker run -d \
+  --name scientific-calculator \
+  -p 5000:5000 \
+  --restart unless-stopped \
+  scientific-calculator:latest
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+#### View logs
+```bash
+docker logs -f scientific-calculator
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+#### Stop and remove container
+```bash
+docker stop scientific-calculator
+docker rm scientific-calculator
+```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### Docker Best Practices Implemented
+- Multi-stage build for smaller image size
+- Non-root user for security
+- Health checks included
+- Layer caching optimization
+- `.dockerignore` for efficient builds
+- Resource limits configured
+- Production-ready with Gunicorn
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## API Documentation
+
+### Base URL
+```
+http://localhost:5000
+```
+
+### Endpoints
+
+#### Health Check
+```http
+GET /api/health
+```
+
+**Response:**
+```json
+{
+  "status": "healthy",
+  "service": "Calculator API",
+  "version": "1.0.0"
+}
+```
+
+#### Calculate Operation
+```http
+POST /api/calculate
+Content-Type: application/json
+```
+
+**Basic Operations (+, -, *, /)**
+```json
+{
+  "operation": "+",
+  "num1": 10,
+  "num2": 5
+}
+```
+
+**Trigonometric Operations (sin, cos, tan, cot)**
+```json
+{
+  "operation": "sin",
+  "num1": 2,
+  "angle": 30
+}
+```
+
+**Logarithm**
+```json
+{
+  "operation": "log",
+  "number": 100,
+  "base": 10
+}
+```
+
+**Power**
+```json
+{
+  "operation": "power",
+  "base": 2,
+  "exponent": 8
+}
+```
+
+**Modulo**
+```json
+{
+  "operation": "mod",
+  "num1": 10,
+  "num2": 3
+}
+```
+
+**Pi Constant**
+```json
+{
+  "operation": "pi"
+}
+```
+
+**Success Response:**
+```json
+{
+  "success": true,
+  "result": 15,
+  "operation": "10 + 5"
+}
+```
+
+**Error Response:**
+```json
+{
+  "success": false,
+  "error": "Division by zero"
+}
+```
+
+## Testing
+
+### Run all tests
+```bash
+pytest tests/ -v
+```
+
+### Run with coverage
+```bash
+pytest tests/ --cov=. --cov-report=html
+```
+
+### Test categories
+- **Unit Tests** (`test_operator.py`): Test all mathematical operations
+- **Integration Tests** (`test_api.py`): Test API endpoints and error handling
+
+## Production Deployment
+
+### Environment Variables
+```bash
+export FLASK_ENV=production
+export PORT=5000
+```
+
+### Using Gunicorn (Production Server)
+```bash
+gunicorn --bind 0.0.0.0:5000 \
+         --workers 4 \
+         --threads 2 \
+         --timeout 60 \
+         --access-logfile - \
+         --error-logfile - \
+         main:app
+```
+
+## Security Features
+
+- **Non-root Docker user**: Application runs as non-privileged user
+- **CORS enabled**: Cross-origin resource sharing configured
+- **Input validation**: All inputs validated and sanitized
+- **Error handling**: Comprehensive error handling prevents information leakage
+- **XSS prevention**: HTML escaping in JavaScript
+- **Type checking**: Type hints for code safety
+
+## Browser Support
+
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## Keyboard Shortcuts
+
+- **Numbers (0-9)**: Insert number
+- **Operators (+, -, *, /)**: Set operation
+- **Enter/=**: Calculate result
+- **Backspace**: Delete last digit
+- **Escape/C**: Clear display
+
+## Troubleshooting
+
+### Port already in use
+```bash
+# Find process using port 5000
+lsof -i :5000  # On macOS/Linux
+netstat -ano | findstr :5000  # On Windows
+
+# Kill the process or use a different port
+export PORT=8000
+```
+
+### Docker build issues
+```bash
+# Clean Docker cache
+docker system prune -a
+
+# Rebuild without cache
+docker-compose build --no-cache
+```
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This project is licensed under the MIT License.
+
+---
+
+**Built with Flask, Python, and Modern Web Technologies**
